@@ -2,17 +2,22 @@ import argparse
 import game_utils
 from snake_game import SnakeGame
 from game_display import GameDisplay
+from new_class_try import Snake
 
 def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
 
     # INIT OBJECTS
     game = SnakeGame()
     gd.show_score(0)
-    game.insert_snake(args)
-    #snake = c_f.Snake(unpack_arg['height'],unpack_arg['width'])
+
+    unpack_arg = {**vars(args)}
+    size = (unpack_arg['width'],unpack_arg['height'])
+    game.init_snake(size)
+
     # DRAW BOARD
     game.draw_board(gd)
     # END OF ROUND 0
+    print(game.snake)
     while not game.is_over():
         # CHECK KEY CLICKS
         key_clicked = gd.get_key_clicked()
