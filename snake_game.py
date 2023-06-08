@@ -5,9 +5,9 @@ class SnakeGame:
 
     def __init__(self) -> None:
 
-        self.__key_clicked = None
+        self.__key_clicked = 'Up'
         self.__snake = None
-        self.__pre_move = None
+        self.__pre_move = 'Down'
         self.langh = 1
         self.key_change = {'Down': (-1, 0), 'Up': (1, 0), 'Right': (0, -1), 'Left': (0, 1)}
         self.back = {'Down': 'Up', 'Up': 'Down', 'Right': 'Left', 'Left': 'Right'}
