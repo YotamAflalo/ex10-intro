@@ -44,3 +44,5 @@ class SnakeGame:
 
     def is_over(self) -> bool:
         return False
+
+    #add line for safe puhs
