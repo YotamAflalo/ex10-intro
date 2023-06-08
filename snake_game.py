@@ -11,7 +11,7 @@ class SnakeGame:
         self.__pre_move = None
         self.langh = 1
 
-    def insert_snake(self, snake,args):
+    def insert_snake(self,args):
         self.__snake = Snake()
         self.__snake.snake_starter(3,args.width//2,args.height//2)
         #print(self.__snake.snake_locs()) #!
@@ -40,7 +40,7 @@ class SnakeGame:
             self.__snake.move_snake_down()
             self.__pre_move = "Down"
     def draw_board(self, gd: GameDisplay) -> None:
-        current = self.__snake.__head
+        current = self.__snake.get_head()
         while current is not None:
             gd.draw_cell(current.get_loc()[0], current.get_loc()[1], "blue")
             current = current.get_next()
@@ -51,7 +51,10 @@ class SnakeGame:
     def end_round(self) -> None:
         pass
 
-    def is_over(self) -> bool:
+    def is_over(self,args) -> bool:
+        locs = self.__snake.get_head().get_loc
+        #if locs[0]==0 or locs[0]==args.height//2 or locs[1]==0 or locs[1]==args.width//2:
+        #    return True
         return False
 
 
