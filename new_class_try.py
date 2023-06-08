@@ -1,31 +1,41 @@
-class vertebra:
+class Vertebra:
 
-    def __init__(self,row,col, next=None, prev= None):
-        self.row = row
-        self.col = col
-        self.__next = next
+    def __init__(self,loc, next=None, prev= None):
+        self.loc = loc
+        self.next = next
         self.prev = prev
 
+
     def get_loc(self):
-        return (self.row,self.col)
+        return (self.loc)
 
     def get_next(self):
         return self.__next
 
     def set_loc(self,x,y):
-        self.row = x
-        self.col = y
+        self.loc = loc = y
 
     def set_next(self,next):
         self.__next = next
 
 
-class snake:
+class Snake:
     ITEM_NOT_FOUND = -1
     def __init__(self, head=None):
         self.__head = None
         self.__tail = None
         self.__length = 0
+
+    def snake_starter(self, num, row, col):
+        '''
+        start a snake with "nam" Vertebras, with head at row,col
+
+        '''
+        for i in range(1,num+1):
+            loc = (row-num+i,col)
+            ver = Vertebra(loc)
+            self.add_first(ver)
+
 
     def get_head(self):
         return self.__head
@@ -62,7 +72,7 @@ class snake:
 
 
     def move_snake_left(self, apple = False):
-        new_vertebra = vertebra(x = self.__head.get_loc()[0]-1,y=self.__head.get_loc()[1])
+        new_vertebra = Vertebra(loc=(self.__head.get_loc()[0]-1,self.__head.get_loc()[1]))
         self.add_first(new_vertebra)
         if apple==True:
             self.__length +=1
@@ -71,7 +81,8 @@ class snake:
 
 
     def move_snake_right(self, apple = False):
-        new_vertebra = vertebra(row=self.__head.get_loc()[0] + 1, col=self.__head.get_loc()[1])
+
+        new_vertebra = Vertebra(loc=(self.__head.get_loc()[0] + 1, self.__head.get_loc()[1]))
         self.add_first(new_vertebra)
         if apple == True:
             self.__length += 1
@@ -80,7 +91,7 @@ class snake:
 
 
     def move_snake_up(self, apple = False):
-        new_vertebra = vertebra(x=self.__head.get_loc()[0], y=self.__head.get_loc()[1]+1)
+        new_vertebra = Vertebra(loc=(self.__head.get_loc()[0],self.__head.get_loc()[1]+1))
         self.add_first(new_vertebra)
         if apple == True:
             self.__length += 1
@@ -89,7 +100,7 @@ class snake:
 
 
     def move_snake_down(self, apple = False):
-        new_vertebra = vertebra(x=self.__head.get_loc()[0], y=self.__head.get_loc()[1]-1)
+        new_vertebra = Vertebra(loc=(self.__head.get_loc()[0], self.__head.get_loc()[1]-1))
         self.add_first(new_vertebra)
         if apple == True:
             self.__length += 1
