@@ -32,7 +32,7 @@ class Snake:
 
         '''
         for i in range(1,num+1):
-            loc = (row-num+i,col)
+            loc = (col,row-num+i)
             ver = Vertebra(loc)
             self.add_first(ver)
 
