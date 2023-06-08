@@ -23,7 +23,10 @@ class snake:
         self.__head = None
         self.__tail = None
         self.__length = 0
-
+    def get_head(self):
+        return self.__head
+    def is_empty(self):
+        return self.__head == None
     def add_first(self, vertebra):
         if self.__head is None:
             # list was empty
@@ -35,15 +38,46 @@ class snake:
         self.__head = vertebra
         self.__length += 1
 
-
-    def get_head(self):
-        return self.__head
-    def is_empty(self):
-        return self.__head == None
-
     def pop_lest(self):
-        pass
+        loc  = self.__tail.get_loc()
 
+        self.__tail = self.__tail.prev
+        if self.__tail is None:  # list is now empty
+            self.__head = None
+        else:  # disconnect old tail
+            self.__tail.next.prev = None
+        self.__tail.next = None
+        self.__length -= 1
+        return loc
+    def move_snake_left(self, apple = False):
+        new_vertebra = vertebra(x = self.__head.get_loc()[0]-1,y=self.__head.get_loc()[1])
+        self.add_first(new_vertebra)
+        if apple==True:
+            self.__length +=1
+        else:
+            self.pop_lest()
+
+    def move_snake_right(self, apple = False):
+        new_vertebra = vertebra(x=self.__head.get_loc()[0] + 1, y=self.__head.get_loc()[1])
+        self.add_first(new_vertebra)
+        if apple == True:
+            self.__length += 1
+        else:
+            self.pop_lest()
+    def move_snake_up(self, apple = False):
+        new_vertebra = vertebra(x=self.__head.get_loc()[0], y=self.__head.get_loc()[1]+1)
+        self.add_first(new_vertebra)
+        if apple == True:
+            self.__length += 1
+        else:
+            self.pop_lest()
+    def move_snake_down(self, apple = False):
+        new_vertebra = vertebra(x=self.__head.get_loc()[0], y=self.__head.get_loc()[1]-1)
+        self.add_first(new_vertebra)
+        if apple == True:
+            self.__length += 1
+        else:
+            self.pop_lest()
     def __len__(self):
         current = self.__head
         count = 0
@@ -61,3 +95,5 @@ class snake:
         if cur.get_loc() == loc:
             return index
         return self.collision_helper(cur.get_next(), loc,index + 1)
+
+
