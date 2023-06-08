@@ -35,8 +35,13 @@ class SnakeGame:
             self.__y -=1
             self.__pre_move = "Down"
     def draw_board(self, gd: GameDisplay) -> None:
-        gd.draw_cell(self.__x, self.__y, "blue")
-        gd.draw_cell(50,50,'red')
+        current = self.__snake.__head
+        while current is not None:
+            gd.draw_cell(current.get_loc()[0], current.get_loc()[1], "blue")
+            current = current.get_next()
+
+        #gd.draw_cell(self.__x, self.__y, "blue")
+        #gd.draw_cell(50,50,'red')
 
     def end_round(self) -> None:
         pass
