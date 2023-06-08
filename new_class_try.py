@@ -10,13 +10,13 @@ class Vertebra:
         return (self.loc)
 
     def get_next(self):
-        return self.__next
+        return self.next
 
     def set_loc(self,x,y):
         self.loc = loc = y
 
     def set_next(self,next):
-        self.__next = next
+        self.next = next
 
 
 class Snake:
