@@ -8,12 +8,12 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     # INIT OBJECTS
     game = SnakeGame()
     gd.show_score(0)
-
+    game.insert_snake(args)
     #snake = c_f.Snake(unpack_arg['height'],unpack_arg['width'])
     # DRAW BOARD
     game.draw_board(gd)
     # END OF ROUND 0
-    while not game.is_over(args):
+    while not game.is_over():
         # CHECK KEY CLICKS
         key_clicked = gd.get_key_clicked()
         game.read_key(key_clicked)
