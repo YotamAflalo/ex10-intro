@@ -86,7 +86,9 @@ class snake:
             current = current.get_next()
         return count
     def collision(self, loc):
-        return self.collision_helper(self.__head, loc, 0)
+        if self.collision_helper(self.__head, loc, 0) == -1:
+            return False
+        else: return True
 
     def collision_helper(self, cur, loc, index):
         if index >= self.__len__():
