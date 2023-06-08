@@ -8,6 +8,9 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     # INIT OBJECTS
     game = SnakeGame()
     gd.show_score(0)
+    unpack_arg = {**vars(args)}
+    print(unpack_arg)
+    #snake = c_f.Snake(unpack_arg['height'],unpack_arg['width'])
     # DRAW BOARD
     game.draw_board(gd)
     # END OF ROUND 0

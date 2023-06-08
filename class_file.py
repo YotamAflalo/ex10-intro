@@ -22,7 +22,7 @@ class Vertebra:
 
     def add_vertebra_link(self):
         if self.next == None:
-            self.next = Vertebra(self.num+1, self.orientation)
+            self.next = Vertebra(self.num+1, self.loc)
         else:
             self.next.add_vertebra_link()
 

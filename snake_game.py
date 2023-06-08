@@ -7,8 +7,13 @@ class SnakeGame:
         self.__x = 5
         self.__y = 5
         self.__key_clicked = None
+        self.__snake = None
         self.__pre_move = None
         self.langh = 1
+
+    def insert_snake(self, snake):
+        self.__snake = snake
+        print(self.__snake.snake_locs()) #!
 
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
@@ -23,7 +28,7 @@ class SnakeGame:
         elif (self.__key_clicked == 'Right') and (self.__x < 40) and (self.__pre_move != "Left"):
             self.__x += 1
             self.__pre_move = 'Right'
-        elif (self.__key_clicked == 'Up') and (self.__y < 40) and (self.__pre_move != "Down"):
+        elif (self.__key_clicked == 'Up') and (self.__y < 30) and (self.__pre_move != "Down"):
             self.__y +=1
             self.__pre_move ="Up"
         elif (self.__key_clicked == 'Down') and (self.__y > 0) and (self.__pre_move != "Up"):
@@ -31,6 +36,7 @@ class SnakeGame:
             self.__pre_move = "Down"
     def draw_board(self, gd: GameDisplay) -> None:
         gd.draw_cell(self.__x, self.__y, "blue")
+        gd.draw_cell(50,50,'red')
 
     def end_round(self) -> None:
         pass
@@ -40,8 +46,4 @@ class SnakeGame:
 
 
 
-"""sg = SnakeGame
-i = 0
-l = []
-while i<10:
-    i"""
+
