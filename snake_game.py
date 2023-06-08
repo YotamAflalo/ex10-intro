@@ -8,6 +8,7 @@ class SnakeGame:
         self.__y = 5
         self.__key_clicked = None
         self.__pre_move = None
+        self.langh = 1
 
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
