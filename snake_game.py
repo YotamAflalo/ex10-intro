@@ -11,6 +11,9 @@ class SnakeGame:
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
+    def get_cklike(self):
+        return self.__key_clicked
+
     def update_objects(self)-> None:
         if (self.__key_clicked == 'Left') and (self.__x > 0):
             self.__x -= 1
@@ -25,3 +28,11 @@ class SnakeGame:
 
     def is_over(self) -> bool:
         return False
+
+
+
+"""sg = SnakeGame
+i = 0
+l = []
+while i<10:
+    i"""
