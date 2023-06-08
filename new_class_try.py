@@ -70,42 +70,48 @@ class Snake:
         self.__length -= 1
         return loc
 
-
-    def move_snake_left(self, apple = False):
-        new_vertebra = Vertebra(loc=(self.__head.get_loc()[0]-1,self.__head.get_loc()[1]))
+    def move_snake(self, loc, apple=False):
+        new_vertebra = Vertebra(loc)
         self.add_first(new_vertebra)
-        if apple==True:
-            self.__length +=1
-        else:
+        if apple == False:
             self.pop_lest()
-
-
-    def move_snake_right(self, apple = False):
-
-        new_vertebra = Vertebra(loc=(self.__head.get_loc()[0] + 1, self.__head.get_loc()[1]))
-        self.add_first(new_vertebra)
-        if apple == True:
+        else:
             self.__length += 1
-        else:
-            self.pop_lest()
+    #def move_snake_left(self, apple = False):
+     #   new_vertebra = Vertebra(loc=(self.__head.get_loc()[0]-1,self.__head.get_loc()[1]))
+      #  self.add_first(new_vertebra)
+    #    if apple==True:
+    #        self.__length +=1
+    #    else:
+    #        self.pop_lest()
 
 
-    def move_snake_up(self, apple = False):
-        new_vertebra = Vertebra(loc=(self.__head.get_loc()[0],self.__head.get_loc()[1]+1))
-        self.add_first(new_vertebra)
-        if apple == True:
-            self.__length += 1
-        else:
-            self.pop_lest()
+    #def move_snake_right(self, apple = False):
+
+    #    new_vertebra = Vertebra(loc=(self.__head.get_loc()[0] + 1, self.__head.get_loc()[1]))
+    #    self.add_first(new_vertebra)
+    #    if apple == True:
+    #        self.__length += 1
+    #    else:
+    #        self.pop_lest()
 
 
-    def move_snake_down(self, apple = False):
-        new_vertebra = Vertebra(loc=(self.__head.get_loc()[0], self.__head.get_loc()[1]-1))
-        self.add_first(new_vertebra)
-        if apple == True:
-            self.__length += 1
-        else:
-            self.pop_lest()
+    #def move_snake_up(self, apple = False):
+    #    new_vertebra = Vertebra(loc=(self.__head.get_loc()[0],self.__head.get_loc()[1]+1))
+    #    self.add_first(new_vertebra)
+    #    if apple == True:
+    #        self.__length += 1
+    #    else:
+    #        self.pop_lest()
+
+
+    #def move_snake_down(self, apple = False):
+    #    new_vertebra = Vertebra(loc=(self.__head.get_loc()[0], self.__head.get_loc()[1]-1))
+    #    self.add_first(new_vertebra)
+    #    if apple == True:
+    #        self.__length += 1
+    #    else:
+    #        self.pop_lest()
 
 
     def __len__(self):
