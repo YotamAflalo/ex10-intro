@@ -1,6 +1,6 @@
 from typing import Optional
 from game_display import GameDisplay
-from new_class_try import snake, vertebra
+from new_class_try import Snake, Vertebra
 class SnakeGame:
 
     def __init__(self) -> None:
@@ -11,9 +11,10 @@ class SnakeGame:
         self.__pre_move = None
         self.langh = 1
 
-    def insert_snake(self, snake):
-        self.__snake = snake
-        print(self.__snake.snake_locs()) #!
+    def insert_snake(self, snake,args):
+        self.__snake = Snake()
+        self.__snake.snake_starter(3,args.width//2,args.height//2)
+        #print(self.__snake.snake_locs()) #!
 
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
