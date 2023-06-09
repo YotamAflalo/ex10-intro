@@ -52,6 +52,7 @@ class Snake:
         self.__head = None
         self.__tail = None
         self.__length = 3
+        self.grouth = 0
 
     def __str__(self):
         current = self.get_head()
@@ -103,13 +104,17 @@ class Snake:
         self.__tail.dis_connect()
 
 
-    def move_snake(self, loc, apple=False):
+    def move_snake(self, loc, apple):
         new_vertebra = self.__head.creat_next(loc)
         self.__head = new_vertebra
-        if apple == False:
-            self.pop_lest()
-        else:
+        if apple == True:
+            self.grouth += 3
+        if self.grouth > 0:
             self.__length += 1
+            self.grouth -= 1
+        else:
+            self.pop_lest()
+
 
     def __len__(self):
         current = self.__head
@@ -122,7 +127,6 @@ class Snake:
 
     def collision(self, loc):
         '''
-
         :param loc: place of the new head of the snale
         :return: if there is a collision with his own tail
         '''

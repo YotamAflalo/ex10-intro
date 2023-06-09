@@ -36,7 +36,8 @@ class SnakeGame:
                 self.snake.get_head_loc()[1] + self.key_change[self.__key_clicked][1]
             if  (0 <= new_loc[0] < self.__size[0]) and (0 <= new_loc[1] < self.__size[1]):
                 self.__pre_move = self.__key_clicked
-                self.snake.move_snake(new_loc)
+                self.snake.move_snake(new_loc, (False))
+                #self.snake.move_snake(new_loc,(loc in @apple.ap_locs@))
 
 
 
