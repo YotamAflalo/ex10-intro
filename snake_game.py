@@ -10,12 +10,11 @@ class SnakeGame:
         self.snake = Snake()
         self.__size = None
         self.__pre_move = 'Up'
-        self.key_change = {'Down':(0, -1) , 'Up': (0, 1) , 'Right': (1, 0), 'Left':(-1, 0), None: (0,0)}
-        self.back = {'Down': 'Up', 'Up': 'Down', 'Right': 'Left', 'Left': 'Right' , None: "____"}
+        self.key_change = {'Down': (0, -1), 'Up': (0, 1), 'Right': (1, 0), 'Left': (-1, 0), None: (0, 0)}
+        self.back = {'Down': 'Up', 'Up': 'Down', 'Right': 'Left', 'Left': 'Right', None: "____"}
 
 
-
-    def init_snake(self,size):
+def init_snake(self,size):
         self.__size = size
         self.snake.snake_starter(size[0]//2,size[1]//2)
 
@@ -31,8 +30,8 @@ class SnakeGame:
         if self.__key_clicked == None:
             self.__key_clicked = self.__pre_move
         if (self.__key_clicked != self.back[self.__pre_move]):
-            new_loc = self.snake.get_head_loc()[0] + self.key_change[self.__key_clicked][0],\
-                self.snake.get_head_loc()[1] + self.key_change[self.__key_clicked][1]
+            new_loc = self.snake.get_head_loc()[0] + self.key_change[self.__key_clicked][0], \
+                      self.snake.get_head_loc()[1] + self.key_change[self.__key_clicked][1]
             if  (0 <= new_loc[0] < self.__size[0]) and (0 <= new_loc[1] < self.__size[1]):
                 self.__pre_move = self.__key_clicked
                 self.snake.move_snake(new_loc)

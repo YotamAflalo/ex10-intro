@@ -11,7 +11,7 @@ class Vertebra:
         """
         self.__loc = loc
         self.prev = prev
-        self.next = None  #מכיוון שאנו לא יודעים ביצירה מה האיבר הבא אין סיבה שיקבל ערך מהכותרת.
+        self.next = None
 
 
     def get_loc(self):
