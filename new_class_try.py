@@ -121,7 +121,7 @@ class Snake:
         count = 0
         while current is not None:
             count = count + 1
-            current = current.get_next()
+            current = current.next
         return count
 
 
@@ -142,7 +142,6 @@ class Snake:
         if cur.get_loc() == loc:
             return index
         return self.collision_helper(cur.get_next(), loc,index + 1)
-
 
 
 

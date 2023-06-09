@@ -48,7 +48,8 @@ class SnakeGame:
             gd.draw_cell(current.get_loc()[0], current.get_loc()[1], "black")
             current = current.prev
 
-
+    def snake_len(self):
+        return len(self.snake)
 
 
 
