@@ -61,13 +61,15 @@ class Walls:
                 if new_loc in self.walls_loc[key]:
                     free_place=0
         if free_place ==1:
-            palce_list = [(x_wall+i*key_change[dir_wall][0],y_wall+i*key_change[dir_wall][1]) for i in range(3)]
-            self.walls_loc[(x_wall,y_wall)] = palce_list
+            palce_list = [[x_wall+i*key_change[dir_wall][0],y_wall+i*key_change[dir_wall][1]] for i in range(3)]
+            self.walls_loc[(x_wall,y_wall,dir_wall)] = palce_list
             self.num_walls+=1
 
     def wall_move(self):
         key_change = {'Down': [-1, 0], 'Up': [1, 0], 'Right': [0, -1], 'Left': [0, 1]}
         for wall in self.walls_loc.keys():
+            #print(wall)
+            #print(wall[-1])
             dir = wall[-1]
             for brick in self.walls_loc[wall]:
                 brick[0]= brick[0]+key_change[dir][0]
