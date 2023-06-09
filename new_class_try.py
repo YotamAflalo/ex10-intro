@@ -1,118 +1,115 @@
 class Vertebra:
-
-    def __init__(self,loc, next=None, prev= None):
-        self.loc = loc
-        self.next = next
+    """
+    A vertebra is a vertebra in a snake.
+    containing information about its location(LOC) on its parent (PERV) and on its son (NEXT).
+    """
+    def __init__(self, loc: tuple, prev= None):
+        """
+        A constructor for a Vertebra object.
+        :param loc: tuple, contain the location of the vertebra.
+        :param prev: if creat fron another vertebra, contain her ID.
+        """
+        self.__loc = loc
         self.prev = prev
+        self.next = None  #מכיוון שאנו לא יודעים ביצירה מה האיבר הבא אין סיבה שיקבל ערך מהכותרת.
 
 
     def get_loc(self):
-        return (self.loc)
+        """
+        Returns the loc of the vertebra.
+        :return: tupel(loc).
+        """
+        return (self.__loc)
 
-    def get_next(self):
+
+    def creat_next(self,new_loc):
+        """
+        Produces a new vertebra and produces father-son connectivity between the vertebrae.
+        :param new_loc: the loc of the new vertebra
+        :return: self.next
+        """
+        self.next = Vertebra(new_loc, self)
+        #print("creat=", self.next.get_loc()) #!!
         return self.next
 
-    def set_loc(self,x,y):
-        self.loc = loc = y
 
-    def set_next(self,next):
-        self.next = next
+    def dis_connect(self):
+        """
+        Severs the vertebra from the previous vertebra
+        :return: None
+        """
+        self.prev = None
+        return self
+
+
+
 
 
 class Snake:
+
     ITEM_NOT_FOUND = -1
-    def __init__(self, head=None):
+    def __init__(self):
         self.__head = None
         self.__tail = None
-        self.__length = 0
+        self.__length = 3
 
-    def snake_starter(self, num, row, col):
+    def __str__(self):
+        current = self.get_head()
+        loc_string = ''
+        while current != None:
+            loc_string += str(current.get_loc()) +','
+            current = current.prev
+        return loc_string[:-1]
+
+
+
+    def snake_starter(self, row: int, col: int):
         '''
-        start a snake with "nam" Vertebras, with head at row,col
-
+        get head loc and conect 2 Vertebra to it.
         '''
-        for i in range(1,num+1):
-            loc = (col,row-num+i)
-            ver = Vertebra(loc)
-            self.add_first(ver)
 
+        self.__tail = Vertebra((row-2,col))
+        curent = self.__tail
+        for i in range(1,-1,-1):
+            curent.creat_next((row-i,col))
+            curent = curent.next
+        self.__head = curent
+
+    def get_locs(self):
+        """
+        :return: list of all the lock list
+        """
 
     def get_head(self):
-        return self.__head
+        """
+        check if head is actual head and send it
+        :return: head
+        """
+        if self.__head.next == None:
+            return self.__head
+        self.__head = self.__head.next
+        return self.get_head()
 
-    def is_empty(self):
-        return self.__head == None
+    def get_head_loc(self):
+        return self.__head.get_loc()
 
-    def add_first(self, vertebra):
-        if self.__head is None:
-            # list was empty
-            self.__tail = vertebra
-        else:
-            self.__head.prev = vertebra
-            vertebra.next = self.__head
-        # update head
-        self.__head = vertebra
-        self.__length += 1
 
     def pop_lest(self):
         '''
         drop the lest vertebra of the snake
-        :return: the lest vertebra location
+        :return: None
         '''
-        loc  = self.__tail.get_loc()
+        self.__tail = self.__tail.next
+        self.__tail.dis_connect()
 
-        self.__tail = self.__tail.prev
-        if self.__tail is None:  # list is now empty
-            self.__head = None
-        else:  # disconnect old tail
-            self.__tail.next.prev = None
-        self.__tail.next = None
-        self.__length -= 1
-        return loc
 
     def move_snake(self, loc, apple=False):
-        new_vertebra = Vertebra(loc)
-        self.add_first(new_vertebra)
+        new_vertebra = self.__head.creat_next(loc)
+        self.__head = new_vertebra
         if apple == False:
             self.pop_lest()
         else:
             self.__length += 1
-    #def move_snake_left(self, apple = False):
-     #   new_vertebra = Vertebra(loc=(self.__head.get_loc()[0]-1,self.__head.get_loc()[1]))
-      #  self.add_first(new_vertebra)
-    #    if apple==True:
-    #        self.__length +=1
-    #    else:
-    #        self.pop_lest()
-
-
-    #def move_snake_right(self, apple = False):
-
-    #    new_vertebra = Vertebra(loc=(self.__head.get_loc()[0] + 1, self.__head.get_loc()[1]))
-    #    self.add_first(new_vertebra)
-    #    if apple == True:
-    #        self.__length += 1
-    #    else:
-    #        self.pop_lest()
-
-
-    #def move_snake_up(self, apple = False):
-    #    new_vertebra = Vertebra(loc=(self.__head.get_loc()[0],self.__head.get_loc()[1]+1))
-    #    self.add_first(new_vertebra)
-    #    if apple == True:
-    #        self.__length += 1
-    #    else:
-    #        self.pop_lest()
-
-
-    #def move_snake_down(self, apple = False):
-    #    new_vertebra = Vertebra(loc=(self.__head.get_loc()[0], self.__head.get_loc()[1]-1))
-    #    self.add_first(new_vertebra)
-    #    if apple == True:
-    #        self.__length += 1
-    #    else:
-    #        self.pop_lest()
-
 
     def __len__(self):
         current = self.__head
@@ -143,3 +140,14 @@ class Snake:
         return self.collision_helper(cur.get_next(), loc,index + 1)
 
 
+
+
+"""
+a = Snake()
+a.snake_starter(5,5)
+print(a)
+print(a.get_head().get_loc())
+a.move_snake((6,5))
+print(a)
+
+"""
