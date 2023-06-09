@@ -22,8 +22,10 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
         game.read_key(key_clicked)
         # UPDATE OBJECTS
         game.update_objects()
+        a = (game.snake_len() ** 0.5) // 1
+        gd.show_score(int(a))
+
         # DRAW BOARD
-        gd.show_score(int((game.snake_len() ** 0.5)//1))
         game.draw_board(gd)
         # WAIT FOR NEXT ROUND:
         game.end_round()

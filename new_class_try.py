@@ -117,12 +117,7 @@ class Snake:
 
 
     def __len__(self):
-        current = self.__head
-        count = 0
-        while current is not None:
-            count = count + 1
-            current = current.next
-        return count
+        return self.__length
 
 
     def collision(self, loc):

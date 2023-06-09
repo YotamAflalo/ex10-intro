@@ -12,7 +12,8 @@ class SnakeGame:
         self.__pre_move = 'Up'
         self.key_change = {'Down':(0, -1) , 'Up': (0, 1) , 'Right': (1, 0), 'Left':(-1, 0), None: (0,0)}
         self.back = {'Down': 'Up', 'Up': 'Down', 'Right': 'Left', 'Left': 'Right' , None: "____"}
-
+        #
+        self.apple = {(1,1),(1,20),(0,0)}
 
 
     def init_snake(self,size):
@@ -36,8 +37,8 @@ class SnakeGame:
                 self.snake.get_head_loc()[1] + self.key_change[self.__key_clicked][1]
             if  (0 <= new_loc[0] < self.__size[0]) and (0 <= new_loc[1] < self.__size[1]):
                 self.__pre_move = self.__key_clicked
-                self.snake.move_snake(new_loc, (False))
-                #self.snake.move_snake(new_loc,(loc in @apple.ap_locs@))
+                #self.snake.move_snake(new_loc, (False))
+                self.snake.move_snake(new_loc,(new_loc in self.apple))
 
 
 
@@ -47,7 +48,8 @@ class SnakeGame:
             #print(current.get_loc())
             gd.draw_cell(current.get_loc()[0], current.get_loc()[1], "black")
             current = current.prev
-
+        for appl in self.apple:
+            gd.draw_cell(appl[0], appl[1], "green")
     def snake_len(self):
         return len(self.snake)
 
