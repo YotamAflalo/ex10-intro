@@ -90,7 +90,6 @@ class SnakeGame:
     def is_over(self) -> bool:
         #התנגשות עם קיר - לא עובד כרגע
         loc_list = self.snake.get_locs()
-        print(loc_list)
         for wall in self.wall.walls_loc.keys():
             for brick in self.wall.walls_loc[wall]:
                 if tuple(brick) in loc_list:

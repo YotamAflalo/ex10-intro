@@ -90,7 +90,6 @@ class Snake:
         if index >= self.__len__():
             return None
         if cor == None: return None
-        print(cor.get_loc())
         loc_list.append(cor.get_loc())
 
         return self.get_locs_helper(cor.prev,index+1)
