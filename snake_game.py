@@ -15,6 +15,7 @@ class SnakeGame:
         self.back = {'Down': 'Up', 'Up': 'Down', 'Right': 'Left', 'Left': 'Right' , None: "____"}
         self.rounds = -1
         self.my_round = 0
+        self.board_keep = (0,0)
         #
         #self.apple = {(1,1),(1,20),(0,0)}
         self.apple = Apples()
@@ -40,6 +41,7 @@ class SnakeGame:
         if (self.__key_clicked != self.back[self.__pre_move]):
             new_loc = self.snake.get_head_loc()[0] + self.key_change[self.__key_clicked][0],\
                 self.snake.get_head_loc()[1] + self.key_change[self.__key_clicked][1]
+            self.board_keep = new_loc
             if  (0 <= new_loc[0] < self.__size[0]) and (0 <= new_loc[1] < self.__size[1]):
                 self.__pre_move = self.__key_clicked
                 #self.snake.move_snake(new_loc, (False))
@@ -67,8 +69,6 @@ class SnakeGame:
             #print(current.get_loc())
             gd.draw_cell(current.get_loc()[0], current.get_loc()[1], "black")
             current = current.prev
-        #for appl in self.apple:
-        #    gd.draw_cell(appl[0], appl[1], "green")
         for ap in self.apple.ap_locs:
             apx,apy = list(ap)[0],list(ap)[1]
             gd.draw_cell(apx, apy, "Green")
@@ -111,7 +111,10 @@ class SnakeGame:
 
         if self.my_round==self.rounds:
             return True
-
+        if (self.board_keep[0] < 0) or (self.board_keep[1] < 0) \
+                or (self.board_keep[0] > self.__size[0] - 1) or (self.board_keep[1] > self.__size[0] - 1):
+            print("Game over board")
+            return True
         return False
 
     #!!!!!
