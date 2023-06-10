@@ -151,7 +151,7 @@ class Snake:
             return index
         return self.collision_helper(cur.next, loc,index + 1)
 
-    def cat_snake(self,loc):
+    def cut_snake(self,loc):
         corrent = self.__head
         while corrent.prev.get_loc() != loc:
             corrent= corrent.prev

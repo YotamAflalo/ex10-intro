@@ -61,7 +61,12 @@ class SnakeGame:
                             self.apple.apple_remover(app_loc)
 
 
-
+                #חותכים נחש שנפגע מקיר
+                loc_list = self.snake.get_locs()[1:]
+                for wall in self.wall.walls_loc.keys():
+                    for brick in self.wall.walls_loc[wall]:
+                        if tuple(brick) in loc_list:
+                            self.snake.cut_snake(tuple(brick))
 
     def draw_board(self, gd: GameDisplay) -> None:
         current = self.snake.get_head()
@@ -95,16 +100,15 @@ class SnakeGame:
 
 
     def is_over(self) -> bool:
-        #התנגשות עם קיר - לא עובד כרגע
-        loc_list = self.snake.get_locs()
         for wall in self.wall.walls_loc.keys():
             for brick in self.wall.walls_loc[wall]:
-                if tuple(brick) in loc_list:
+                if tuple(brick) == self.snake.get_head_loc():
                 #if self.snake.collision(tuple(brick)):
                     print("Game over wall") #!
                     return True
-        #התנגשות של ראש הנחש
 
+        #התנגשות של ראש הנחש
+        loc_list = self.snake.get_locs()
         if len(loc_list)!=len(set(loc_list)):
             print("Game over tail") #!
             return True
