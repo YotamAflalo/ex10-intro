@@ -88,7 +88,7 @@ class SnakeGame:
             for brick in self.wall.walls_loc[wall]:
                 print(tuple(brick))
                 if self.snake.collision(tuple(brick)):
-                    print("Game over") #!
+                    #print("Game over") #!
                     return True
         return False
 
