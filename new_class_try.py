@@ -152,11 +152,15 @@ class Snake:
         return self.collision_helper(cur.next, loc,index + 1)
 
     def cut_snake(self,loc):
+        i = 1
         corrent = self.__head
         while corrent.prev.get_loc() != loc:
             corrent= corrent.prev
+            i += 1
         corrent.dis_connect()
         self.__tail = corrent
+        self.__length = i
+
 
 """
 !
