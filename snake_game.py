@@ -52,6 +52,12 @@ class SnakeGame:
                     self.wall.wall_generetor(self.wall.walls_loc,set(new_loc)) #יש פה טעות, צריך להכניס לו רשימה של מיקומי הנחש
                 if self.apple.need_more_apple():
                     self.apple.apple_generetor(self.wall.walls_loc,self.snake.get_locs())
+                ap_list = self.apple.ap_locs.copy()
+                for wall in self.wall.walls_loc.keys():
+                    for app_loc in ap_list:
+                        if list(app_loc) in self.wall.walls_loc[wall]:
+                            self.apple.apple_remover(app_loc)
+
 
 
 
