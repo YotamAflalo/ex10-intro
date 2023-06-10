@@ -51,7 +51,7 @@ class SnakeGame:
                 if self.my_round%2==0:
                     self.wall.wall_move()
                 if self.wall.need_more_walls():
-                    self.wall.wall_generetor(self.wall.walls_loc,set(new_loc)) #יש פה טעות, צריך להכניס לו רשימה של מיקומי הנחש
+                    self.wall.wall_generetor(self.wall.walls_loc,self.snake.get_locs()) #יש פה טעות, צריך להכניס לו רשימה של מיקומי הנחש
                 if self.apple.need_more_apple():
                     self.apple.apple_generetor(self.wall.walls_loc,self.snake.get_locs())
                 ap_list = self.apple.ap_locs.copy()
