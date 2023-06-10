@@ -20,10 +20,11 @@ class SnakeGame:
         self.apple = Apples()
         self.wall = Walls()
 
-    def init_snake(self,size,rounds):
+    def init_snake(self,size,rounds,apple):
         self.__size = size
         self.snake.snake_starter(size[0]//2,size[1]//2)
         self.rounds = rounds
+        self.apple.max_num=apple
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
@@ -50,7 +51,7 @@ class SnakeGame:
                 if self.wall.need_more_walls():
                     self.wall.wall_generetor(self.wall.walls_loc,set(new_loc)) #יש פה טעות, צריך להכניס לו רשימה של מיקומי הנחש
                 if self.apple.need_more_apple():
-                    self.apple.apple_generetor(self.wall.walls_loc)
+                    self.apple.apple_generetor(self.wall.walls_loc,self.snake.get_locs())
 
 
 

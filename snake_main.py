@@ -12,7 +12,8 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     unpack_arg = {**vars(args)}
     size = (unpack_arg['width'],unpack_arg['height'])
     rounds = unpack_arg['rounds']
-    game.init_snake(size,rounds)
+    apple = unpack_arg['apples']
+    game.init_snake(size,rounds,apple)
 
     # DRAW BOARD
     game.draw_board(gd)

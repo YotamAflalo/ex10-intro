@@ -10,7 +10,7 @@ class Apples:
         self.ap_locs = set() #נכניס לסט
 
 
-    def apple_generetor(self,walls_loc:dict):
+    def apple_generetor(self,walls_loc:dict,snake_locs:list):
         new_apple_loc = get_random_apple_data() #tuple
         free_palce = 1
         if new_apple_loc in self.ap_locs:
@@ -18,6 +18,9 @@ class Apples:
         for key in walls_loc.keys():
             if new_apple_loc in walls_loc[key]:
                 free_place = 0
+        if new_apple_loc in snake_locs:
+            free_place =0
+
         if free_palce==1:
             #כרגע הפונקציה לא מתחשבת בהתנגשות עם נחש או קיר. צריך לחשוב איפה להכניס את זה
             self.ap_locs.add(new_apple_loc)
