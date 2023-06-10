@@ -13,7 +13,6 @@ class SnakeGame:
         self.__pre_move = 'Up'
         self.key_change = {'Down':(0, -1) , 'Up': (0, 1) , 'Right': (1, 0), 'Left':(-1, 0), None: (0,0)}
         self.back = {'Down': 'Up', 'Up': 'Down', 'Right': 'Left', 'Left': 'Right' , None: "____"}
-        self.rounds = -1
         self.my_round = 0
         self.board_keep = (0,0)
         #
@@ -114,8 +113,7 @@ class SnakeGame:
             print("Game over tail") #!
             return True
 
-        if self.my_round==self.rounds:
-            return True
+
         if (self.board_keep[0] < 0) or (self.board_keep[1] < 0) \
                 or (self.board_keep[0] > self.__size[0] - 1) or (self.board_keep[1] > self.__size[1] - 1):
             print("Game over board")
