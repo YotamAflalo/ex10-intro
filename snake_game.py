@@ -65,14 +65,23 @@ class SnakeGame:
         for wall in self.wall.walls_loc.keys():
             for brick in self.wall.walls_loc[wall]:
                 bx,by = brick[0],brick[1]
-                gd.draw_cell(bx, by, "Blue")
+                if (0<brick[0]<self.__size[0]) and (0<brick[1]<self.__size[1]):
+                    gd.draw_cell(bx, by, "Blue")
     def snake_len(self):
         return len(self.snake)
 
 
 
     def end_round(self) -> None:
-        pass
+        wall_ex_dict =self.wall.walls_loc.copy()
+        for wall in wall_ex_dict.keys():
+            out =1
+            for brick in wall_ex_dict[wall]:
+                if (0<brick[0]<self.__size[0]) and (0<brick[1]<self.__size[1]):
+                    out=0
+            if out==1:
+                self.wall.wall_remove(wall)
+
 
     def is_over(self) -> bool:
         return False
