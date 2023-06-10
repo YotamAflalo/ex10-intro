@@ -38,3 +38,4 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
 if __name__ == "__main__":
     print("You should run:\n"
           "> python game_display.py")
+    #1
