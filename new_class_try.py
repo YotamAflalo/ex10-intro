@@ -133,10 +133,10 @@ class Snake:
     def collision_helper(self, cur, loc, index):
         if index >= self.__len__():
             return -1
-
+        if cur == None: return -1
         if cur.get_loc() == loc:
             return index
-        return self.collision_helper(cur.get_next(), loc,index + 1)
+        return self.collision_helper(cur.next, loc,index + 1)
 
 
 

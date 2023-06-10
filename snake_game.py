@@ -84,6 +84,12 @@ class SnakeGame:
 
 
     def is_over(self) -> bool:
+        for wall in self.wall.walls_loc.keys():
+            for brick in self.wall.walls_loc[wall]:
+                print(tuple(brick))
+                if self.snake.collision(tuple(brick)):
+                    print("Game over") #!
+                    return True
         return False
 
     #!!!!!

@@ -77,6 +77,7 @@ class Walls:
 
     def wall_remove(self,loc:tuple):
         self.walls_loc.pop(loc)
+        self.num_walls -=1
 
 
     def wall_locs(self):
