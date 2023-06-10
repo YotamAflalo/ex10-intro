@@ -21,11 +21,12 @@ class SnakeGame:
         self.apple = Apples()
         self.wall = Walls()
 
-    def init_snake(self,size,rounds,apple):
+    def init_objects(self, size, apple, walls):
         self.__size = size
         self.snake.snake_starter(size[0]//2,size[1]//2)
-        self.rounds = rounds
         self.apple.max_num=apple
+        self.walls.max = walls
+
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
