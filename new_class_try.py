@@ -80,6 +80,20 @@ class Snake:
         """
         :return: list of all the lock list
         """
+        global loc_list
+        loc_list = []
+        index=0
+        self.get_locs_helper(self.__head,0)
+        return loc_list
+
+    def get_locs_helper(self,cor,index):
+        if index >= self.__len__():
+            return None
+        if cor == None: return None
+        print(cor.get_loc())
+        loc_list.append(cor.get_loc())
+
+        return self.get_locs_helper(cor.prev,index+1)
 
     def get_head(self):
         """

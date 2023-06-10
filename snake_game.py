@@ -13,15 +13,17 @@ class SnakeGame:
         self.__pre_move = 'Up'
         self.key_change = {'Down':(0, -1) , 'Up': (0, 1) , 'Right': (1, 0), 'Left':(-1, 0), None: (0,0)}
         self.back = {'Down': 'Up', 'Up': 'Down', 'Right': 'Left', 'Left': 'Right' , None: "____"}
+        self.rounds = -1
+        self.my_round = 0
         #
         #self.apple = {(1,1),(1,20),(0,0)}
         self.apple = Apples()
         self.wall = Walls()
 
-    def init_snake(self,size):
+    def init_snake(self,size,rounds):
         self.__size = size
         self.snake.snake_starter(size[0]//2,size[1]//2)
-
+        self.rounds = rounds
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
@@ -43,7 +45,8 @@ class SnakeGame:
                 self.snake.move_snake(new_loc,(new_loc in self.apple.ap_locs))
                 if new_loc in self.apple.ap_locs:
                     self.apple.apple_remover(new_loc)
-                self.wall.wall_move()
+                if self.my_round%2==0:
+                    self.wall.wall_move()
                 if self.wall.need_more_walls():
                     self.wall.wall_generetor(self.wall.walls_loc,set(new_loc)) #יש פה טעות, צריך להכניס לו רשימה של מיקומי הנחש
                 if self.apple.need_more_apple():
@@ -81,15 +84,28 @@ class SnakeGame:
                     out=0
             if out==1:
                 self.wall.wall_remove(wall)
+        self.my_round +=1
 
 
     def is_over(self) -> bool:
+        #התנגשות עם קיר - לא עובד כרגע
+        loc_list = self.snake.get_locs()
+        print(loc_list)
         for wall in self.wall.walls_loc.keys():
             for brick in self.wall.walls_loc[wall]:
-                print(tuple(brick))
-                if self.snake.collision(tuple(brick)):
-                    #print("Game over") #!
+                if tuple(brick) in loc_list:
+                #if self.snake.collision(tuple(brick)):
+                    print("Game over wall") #!
                     return True
+        #התנגשות של ראש הנחש
+
+        if len(loc_list)!=len(set(loc_list)):
+            print("Game over tail") #!
+            return True
+
+        if self.my_round==self.rounds:
+            return True
+
         return False
 
     #!!!!!
