@@ -116,7 +116,7 @@ class SnakeGame:
         if self.my_round==self.rounds:
             return True
         if (self.board_keep[0] < 0) or (self.board_keep[1] < 0) \
-                or (self.board_keep[0] > self.__size[0] - 1) or (self.board_keep[1] > self.__size[0] - 1):
+                or (self.board_keep[0] > self.__size[0] - 1) or (self.board_keep[1] > self.__size[1] - 1):
             print("Game over board")
             return True
         return False
