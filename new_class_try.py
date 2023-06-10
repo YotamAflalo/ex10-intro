@@ -159,6 +159,7 @@ class Snake:
         self.__tail = corrent
 
 """
+!
 a = Snake()
 a.snake_starter(5,5)
 print(a)
