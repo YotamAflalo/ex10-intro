@@ -43,8 +43,11 @@ class Apples:
         :param loc: pace to remove apple from
         :return: None
         '''
-        self.ap_locs.remove(loc)
-        self.corrent_num = len(self.ap_locs)
+        try:
+            self.ap_locs.remove(loc)
+            self.corrent_num = len(self.ap_locs)
+        except KeyError:
+            None
 
     def need_more_apple(self):
         '''

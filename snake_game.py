@@ -104,6 +104,7 @@ class SnakeGame:
             for app_loc in ap_list:
                 if list(app_loc) in self.wall.walls_loc[wall]:
                     self.apple.apple_remover(app_loc)
+                    break
 
                 # If a wall is run over by a snake
                 loc_list = self.snake.get_locs()[1:]
@@ -126,7 +127,7 @@ class SnakeGame:
         for wall in self.wall.walls_loc.keys():
             for brick in self.wall.walls_loc[wall]:
                 bx,by = brick[0],brick[1]
-                if (0<brick[0]<self.__size[0]) and (0<brick[1]<self.__size[1]):
+                if (0 <= brick[0]<self.__size[0]) and (0 <= brick[1] < self.__size[1]):
                     gd.draw_cell(bx, by, "Blue")
     def snake_len(self):
         return len(self.snake)
