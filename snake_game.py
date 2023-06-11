@@ -25,7 +25,10 @@ class SnakeGame:
         self.snake.snake_starter(size[0]//2,size[1]//2)
         self.apple.max_num=apple
         self.wall.max_walls = walls
-
+    def init_objects_debug(self, size, apple, walls):
+        self.__size = size
+        self.apple.max_num=apple
+        self.wall.max_walls = walls
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
