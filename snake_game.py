@@ -131,11 +131,15 @@ class SnakeGame:
 
 
     def end_round(self) -> None:
+        '''
+        In this code section we check whether a wall has left the board.
+         If so - we remove it from the dict of walls
+        '''
         wall_ex_dict =self.wall.walls_loc.copy()
         for wall in wall_ex_dict.keys():
             out =1
             for brick in wall_ex_dict[wall]:
-                if (0<brick[0]<self.__size[0]) and (0<brick[1]<self.__size[1]):
+                if (0<=brick[0]<=self.__size[0]) and (0<=brick[1]<=self.__size[1]):
                     out=0
             if out==1:
                 self.wall.wall_remove(wall)
