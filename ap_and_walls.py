@@ -4,6 +4,9 @@ from new_class_try import Snake, Vertebra
 from game_utils import *
 
 class Apples:
+    '''
+    The apple class contain all the apples that exist in the game and their locations.
+    '''
     def __init__(self, max_num=3):
         self.max_num = max_num  # maximum number of apples
         self.corrent_num = 0
@@ -63,6 +66,9 @@ class Apples:
 
 
 class Walls:
+    '''
+    The Walls object contain all the apples that exist in the game and their locations.
+    '''
     def __init__(self,max_num_walls = 2):
         self.walls_loc = {}
         self.max_walls =max_num_walls
@@ -78,17 +84,20 @@ class Walls:
         x_wall,y_wall,dir_wall = get_random_wall_data()
         key_change = {'Down': [-1, 0], 'Up': [1, 0], 'Right': [0, -1], 'Left': [0, 1]}
         free_place = 1
-        for i in range(3):
+        for i in range(3): #generate wall with 3 bricks
             new_loc = x_wall+i*key_change[dir_wall][0],y_wall+i*key_change[dir_wall][1]
+            #chack for apples
             if new_loc in ap_locs or new_loc in snake_locs:
                 free_place=0
+            #chack for aother walls
             for key in self.walls_loc.keys():
                 if new_loc in self.walls_loc[key]:
                     free_place=0
         if free_place ==1:
+            #making list with all the brick places
             palce_list = [[x_wall+i*key_change[dir_wall][0],y_wall+i*key_change[dir_wall][1]] for i in range(3)]
-            self.walls_loc[(x_wall,y_wall,dir_wall)] = palce_list
-            self.num_walls+=1
+            self.walls_loc[(x_wall,y_wall,dir_wall)] = palce_list #place the new wall
+            self.num_walls+=1 #add 1 to the walls count
 
     def wall_move(self):
         '''
@@ -99,7 +108,7 @@ class Walls:
         # Move each wall in the right direction, by the keys above
         for wall in self.walls_loc.keys():
 
-            dir = wall[-1]
+            dir = wall[-1] #the direction of the move
             for brick in self.walls_loc[wall]:
                 brick[0]= brick[0]+key_change[dir][0]
                 brick[1]=brick[1]+key_change[dir][1]
