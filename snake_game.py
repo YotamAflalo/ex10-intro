@@ -128,7 +128,8 @@ class SnakeGame:
                 bx,by = brick[0],brick[1]
                 if (0<brick[0]<self.__size[0]) and (0<brick[1]<self.__size[1]):
                     gd.draw_cell(bx, by, "Blue")
-
+    def snake_len(self):
+        return len(self.snake)
 
     def end_round(self) -> None:
         '''
