@@ -1,6 +1,7 @@
 class Vertebra:
     """
     A vertebra is a vertebra in a snake.
+    or doble side linked object.
     containing information about its location(LOC) on its parent (PERV) and on its son (NEXT).
     """
     def __init__(self, loc: tuple, prev= None):
@@ -46,15 +47,22 @@ class Vertebra:
 
 
 class Snake:
-
-    ITEM_NOT_FOUND = -1
+    """An object that holds the ends of a verbatra chain."""
     def __init__(self):
+        """
+         A constructor for a snake object.
+        """
         self.__head = None
         self.__tail = None
         self.__length = 3
         self.grouth = 0
 
+
     def __str__(self):
+        """
+        Prints a sequence of tuples containing the positions within the snake's vertebra
+        :return: str(string of loc tuple)
+        """
         current = self.get_head()
         loc_string = ''
         while current != None:
@@ -62,6 +70,10 @@ class Snake:
             current = current.prev
         return loc_string[:-1]
 
+
+    def __len__(self):
+        """Returns the length of the snake"""
+        return self.__length
 
 
     def snake_starter(self, row: int, col: int):
@@ -87,11 +99,16 @@ class Snake:
         return loc_list
 
     def get_locs_helper(self,cor,index):
+        """
+        A recursive function runs from head to tail and returns all positions
+        :param cor: the loc of the object
+        :param index:
+        :return: loc + nex.loc .... tail.loc
+        """
         if index >= self.__len__():
             return None
         if cor == None: return None
         loc_list.append(cor.get_loc())
-
         return self.get_locs_helper(cor.prev,index+1)
 
     def get_head(self):
@@ -105,6 +122,9 @@ class Snake:
         return self.get_head()
 
     def get_head_loc(self):
+        """
+        Returns the position of the snake's head
+        """
         return self.__head.get_loc()
 
 
@@ -118,6 +138,15 @@ class Snake:
 
 
     def move_snake(self, loc, apple):
+        """
+        Performs Snake's Head Step.
+        By adding a verbata in front of the head.
+        Update the increment value if an apple has been updated.
+        If increment value == 0.
+        will remove the last verbata.
+        :param loc: the new loc of the head
+        :param apple: bool. if apple got eaten
+        """
         new_vertebra = self.__head.creat_next(loc)
         self.__head = new_vertebra
         if apple == True:
@@ -129,8 +158,32 @@ class Snake:
             self.pop_lest()
 
 
-    def __len__(self):
-        return self.__length
+
+
+    def cut_snake(self,loc):
+        """
+        Gets a LOC value from the snake and assigns it to the tail.
+        and disconnects the varbatas
+        :param loc: the loc of the new tail
+        """
+        i = 1
+        corrent = self.__head
+        while corrent.prev.get_loc() != loc:
+            corrent= corrent.prev
+            i += 1
+        corrent.dis_connect()
+        self.__tail = corrent
+        self.__length = i
+
+
+"""
+!
+a = Snake()
+a.snake_starter(5,5)
+print(a)
+print(a.get_head().get_loc())
+a.move_snake((6,5))
+print(a)
 
 
     def collision(self, loc):
@@ -150,25 +203,5 @@ class Snake:
         if cur.get_loc() == loc:
             return index
         return self.collision_helper(cur.next, loc,index + 1)
-
-    def cut_snake(self,loc):
-        i = 1
-        corrent = self.__head
-        while corrent.prev.get_loc() != loc:
-            corrent= corrent.prev
-            i += 1
-        corrent.dis_connect()
-        self.__tail = corrent
-        self.__length = i
-
-
-"""
-!
-a = Snake()
-a.snake_starter(5,5)
-print(a)
-print(a.get_head().get_loc())
-a.move_snake((6,5))
-print(a)
 
 """

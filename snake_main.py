@@ -9,6 +9,7 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     game = SnakeGame()
     gd.show_score(0)
     unpack_arg = {**vars(args)}
+    print(unpack_arg)
     size = (unpack_arg['width'],unpack_arg['height'])
     rounds = unpack_arg['rounds']
     if rounds > 0:
@@ -17,7 +18,6 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
         game.init_objects(size,unpack_arg['apples'],unpack_arg['walls'])
     else:
         game.init_objects_debug(size,unpack_arg['apples'],unpack_arg['walls'])
-
     # DRAW BOARD
     game.draw_board(gd)
     # END OF ROUND 0
