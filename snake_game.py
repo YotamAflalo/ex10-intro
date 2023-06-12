@@ -13,7 +13,7 @@ class SnakeGame:
         A constructor for a SnakeGame object.
 
         """
-        self.__key_clicked = 'Up'
+        self.__key_clicked = None
         self.snake = Snake()
         self.apple = Apples()
         self.wall = Walls()
@@ -57,21 +57,27 @@ class SnakeGame:
         self.apple.max_num=apple
         self.wall.max_walls = walls
     def read_key(self, key_clicked: Optional[str])-> None:
-        """Read the key that the user pressed"""
+        """
+        Read the key that the user pressed
+        """
         self.__key_clicked = key_clicked
 
     def get_cklike(self):
-        """Gets the key that the user pressed"""
+        """
+        Gets the key that the user pressed
+        """
         return self.__key_clicked
 
     def update_objects(self)-> None:
         """
         Updates all the objects placed on the board
         """
+        if self.my_round <=  6:
+            print(")))))))))))))))))))))))))))))))))))))))))))))))))))))))))")
+            return None
     #For the sake of continuous running the game will treat not clicking as the previous click.
         if self.__key_clicked == None:
             self.__key_clicked = self.__pre_move
-
     # Checks if the direction is not the opposite direction from the previous reading.
     # If so it will ignore the current reading.
     # Configer the new location the had suld go to.
@@ -113,22 +119,24 @@ class SnakeGame:
                         if tuple(brick) in loc_list:
                             self.snake.cut_snake(tuple(brick))
 
+
     def draw_board(self, gd: GameDisplay) -> None:
         """
         Gets all the locations to display on the board and sends them to the display function
         """
         current = self.snake.get_head()
-        while current:
-            gd.draw_cell(current.get_loc()[0], current.get_loc()[1], self.color)
+        while current and self.color == 'black':
+            gd.draw_cell(current.get_loc()[0], current.get_loc()[1], 'black')
             current = current.prev
         for ap in self.apple.ap_locs:
             apx,apy = list(ap)[0],list(ap)[1]
-            gd.draw_cell(apx, apy, "Green")
+            gd.draw_cell(apx, apy, "green")
         for wall in self.wall.walls_loc.keys():
             for brick in self.wall.walls_loc[wall]:
                 bx,by = brick[0],brick[1]
                 if (0 <= brick[0]<self.__size[0]) and (0 <= brick[1] < self.__size[1]):
-                    gd.draw_cell(bx, by, "Blue")
+                    gd.draw_cell(bx, by, "blue")
+
     def snake_len(self):
         return len(self.snake)
 
@@ -161,7 +169,8 @@ class SnakeGame:
 
         #self eating
         loc_list = self.snake.get_locs()
-        if len(loc_list)!=len(set(loc_list)):
+        #print((loc_list),'\n',(set(loc_list)))
+        if len(loc_list) != len(set(loc_list)):
             print("Game over tail")
             return True
 
