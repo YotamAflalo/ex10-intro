@@ -165,7 +165,8 @@ class Snake:
 
 
     def snake_score(self):
-        self.score = (len(self) ** 0/5) // 1
+        self.score = int((len(self) ** 1/2) // 1)
+        print("score:",self.score)
 
 
 
