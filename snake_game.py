@@ -100,7 +100,7 @@ class SnakeGame:
     # Objects interaction:
         if new_loc in self.apple.ap_locs: #if apple got eat
             self.apple.apple_remover(new_loc)
-        if self.my_round%2==0 and self.my_round>0: #if need to move the whalls
+        if self.my_round%2==1 and self.my_round>0: #if need to move the whalls
             self.wall.wall_move()
         if self.wall.need_more_walls():
             self.wall.wall_generetor(self.wall.walls_loc,self.snake.get_locs())
