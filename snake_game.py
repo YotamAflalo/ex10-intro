@@ -102,6 +102,15 @@ class SnakeGame:
             self.apple.apple_remover(new_loc)
         if self.my_round%2==1 and self.my_round>0: #if need to move the whalls
             self.wall.wall_move()
+        wall_ex_dict = self.wall.walls_loc.copy()
+        for wall in wall_ex_dict.keys():
+            out = 1
+            for brick in wall_ex_dict[wall]:
+                if (0 <= brick[0] <= self.__size[0]-1) and (0 <= brick[1] <= self.__size[1]-1):
+                    out = 0
+            if out == 1:
+                self.wall.wall_remove(wall)
+                self.wall.wall_generetor(self.wall.walls_loc, self.snake.get_locs())
         if self.wall.need_more_walls():
             self.wall.wall_generetor(self.wall.walls_loc,self.snake.get_locs())
         if self.apple.need_more_apple():
@@ -172,14 +181,9 @@ class SnakeGame:
         In this code section we check whether a wall has left the board.
          If so - we remove it from the dict of walls
         '''
-        wall_ex_dict =self.wall.walls_loc.copy()
-        for wall in wall_ex_dict.keys():
-            out =1
-            for brick in wall_ex_dict[wall]:
-                if (0<=brick[0]<=self.__size[0]) and (0<=brick[1]<=self.__size[1]):
-                    out=0
-            if out==1:
-                self.wall.wall_remove(wall)
+
+                
+
         self.my_round +=1
 
 
