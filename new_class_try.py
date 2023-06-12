@@ -56,6 +56,7 @@ class Snake:
         self.__tail = None
         self.__length = 3
         self.grouth = 0
+        self.score = 0
 
 
     def __str__(self):
@@ -153,13 +154,19 @@ class Snake:
         """
         new_vertebra = self.__head.creat_next(loc)
         self.__head = new_vertebra
-        if apple == True:
-            self.grouth += 3
         if self.grouth > 0:
             self.__length += 1
             self.grouth -= 1
         else:
             self.pop_lest()
+        if apple == True:
+            self.grouth += 3
+            self.snake_score()
+
+
+    def snake_score(self):
+        self.score = (len(self) ** 0/5) // 1
+
 
 
 

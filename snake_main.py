@@ -26,19 +26,13 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     print(f)
     gd.end_round()
     while (not game.is_over()) and not rounds in [0,1]:
-
+        gd.show_score(game.snake.score)
         # CHECK KEY CLICKS
         key_clicked = gd.get_key_clicked()
         game.read_key(key_clicked)
         # UPDATE OBJECTS
         game.update_objects()
-        a = (game.snake_len() ** 0.5) // 1
 
-        #if gd._round_num<2:
-        #    gd.show_score(0)
-        #else:
-        if game.snake_len() > 3:
-            gd.show_score(int(a))
             # DRAW BOARD
         game.draw_board(gd)
         # WAIT FOR NEXT ROUND:
