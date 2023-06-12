@@ -88,7 +88,7 @@ class Snake:
             curent.creat_next((row, col + i))
             curent = curent.next
         self.__head = curent
-        print(self)
+        #print(self)
 
     def get_locs(self):
         """

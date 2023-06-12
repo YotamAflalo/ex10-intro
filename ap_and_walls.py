@@ -21,10 +21,10 @@ class Apples:
         :return: None
         '''
         new_apple_loc = get_random_apple_data()  # generates a random apple location (tuple)
-        free_palce = 1
+        free_place = 1
         # Check if the new apple location is already occupied by another apple
         if new_apple_loc in self.ap_locs:
-            free_palce = 0
+            free_place = 0
         # Check if the new apple location is in any of the walls
         for key in walls_loc.keys():
             if new_apple_loc in walls_loc[key]:
@@ -33,7 +33,7 @@ class Apples:
         if new_apple_loc in snake_locs:
             free_place = 0
         # If the location is free, add the new apple to ap_locs and update the current number of apples
-        if free_palce == 1:
+        if free_place == 1:
             self.ap_locs.add(new_apple_loc)
             self.corrent_num = len(self.ap_locs)
 
@@ -85,7 +85,6 @@ class Walls:
         :return: None
         '''
         x_wall,y_wall,dir_wall = get_random_wall_data()
-        print(x_wall,y_wall,dir_wall)
         #key_change = {'Down': [-1, 0], 'Up': [1, 0], 'Right': [0, -1], 'Left': [0, 1]}
         key_change = {'Right': [1, 0], 'Left': [-1, 0], 'Down': [0, -1], 'Up': [0, 1]}
         free_place = 1
