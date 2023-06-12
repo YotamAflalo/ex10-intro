@@ -19,7 +19,7 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     else:
         game.init_objects_debug(size,unpack_arg['apples'],unpack_arg['walls'])
     # DRAW BOARD
-    game.update_objects_r0()
+    game.update_appels_and_walls()
     game.draw_board(gd)
     # END OF ROUND 0
     gd.end_round()

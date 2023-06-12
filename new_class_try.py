@@ -74,7 +74,14 @@ class Snake:
 
     def __len__(self):
         """Returns the length of the snake"""
-        return self.__length
+        i = 0
+        current = self.__head
+        while current != None:
+            i += 1
+            current = current.prev
+        return i
+
+
 
 
     def snake_starter(self, row: int, col: int):
@@ -107,7 +114,7 @@ class Snake:
         :param index:
         :return: loc + nex.loc .... tail.loc
         """
-        if index >= self.__len__():
+        if index >= (self.__len__()):
             return None
         if cor == None: return None
         loc_list.append(cor.get_loc())
@@ -165,8 +172,9 @@ class Snake:
 
 
     def snake_score(self):
-        self.score = int((len(self) ** 1/2) // 1)
-        print("score:",self.score)
+
+        self.score += int((len(self) ** 0.5) // 1)
+
 
 
 
@@ -178,7 +186,7 @@ class Snake:
         and disconnects the varbatas
         :param loc: the loc of the new tail
         """
-        i = 1
+        i = 0
         corrent = self.__head
         while corrent.prev.get_loc() != loc:
             corrent= corrent.prev

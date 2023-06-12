@@ -56,6 +56,8 @@ class SnakeGame:
         self.color = 'white'
         self.apple.max_num=apple
         self.wall.max_walls = walls
+
+
     def read_key(self, key_clicked: Optional[str])-> None:
         """
         Read the key that the user pressed
@@ -72,13 +74,12 @@ class SnakeGame:
         """
         Updates all the objects placed on the board
         """
-
     #For the sake of continuous running the game will treat not clicking as the previous click.
         if self.__key_clicked == None:
             self.__key_clicked = self.__pre_move
     # Checks if the direction is not the opposite direction from the previous reading.
     # If so it will ignore the current reading.
-    # Configer the new location the had suld go to.
+    # Configer the new location the had shuld go to.
         if (self.__key_clicked != self.back[self.__pre_move]):
             new_loc = self.snake.get_head_loc()[0] + self.key_change[self.__key_clicked][0],\
                 self.snake.get_head_loc()[1] + self.key_change[self.__key_clicked][1]
@@ -93,63 +94,56 @@ class SnakeGame:
         if  (0 <= new_loc[0] < self.__size[0]) and (0 <= new_loc[1] < self.__size[1]):
             self.__pre_move = self.__key_clicked
             self.snake.move_snake(new_loc,(new_loc in self.apple.ap_locs))
-        else:
+        elif self.color != 'white':
             self.snake.move_snake(new_loc, (new_loc in self.apple.ap_locs))
             self.snake.decapitation()
 
     # Objects interaction:
-        if new_loc in self.apple.ap_locs: #if apple got eat
-            self.apple.apple_remover(new_loc)
-        if self.my_round%2==1 and self.my_round>0: #if need to move the whalls
+        if self.my_round % 2 == 1 and self.my_round > 0: #if need to move the whalls
             self.wall.wall_move()
         wall_ex_dict = self.wall.walls_loc.copy()
         for wall in wall_ex_dict.keys():
-            out = 1
+            remove = True
             for brick in wall_ex_dict[wall]:
                 if (0 <= brick[0] <= self.__size[0]-1) and (0 <= brick[1] <= self.__size[1]-1):
-                    out = 0
-            if out == 1:
+                    remove = False
+            if remove:
                 self.wall.wall_remove(wall)
-                #self.wall.wall_generetor(self.wall.walls_loc, self.snake.get_locs())
-        if self.wall.need_more_walls():
-            self.wall.wall_generetor(self.wall.walls_loc,self.snake.get_locs())
-        if self.apple.need_more_apple():
-            self.apple.apple_generetor(self.wall.walls_loc,self.snake.get_locs())
-        ap_list = self.apple.ap_locs.copy()
+        if new_loc in self.apple.ap_locs: #if apple got eat
+            self.apple.apple_remover(new_loc)
+        self.update_appels_and_walls()
+
+
+
+    def snake_salami(self):
+        loc_list = self.snake.get_locs()[1:]
         for wall in self.wall.walls_loc.keys():
-            for app_loc in ap_list:
-                if list(app_loc) in self.wall.walls_loc[wall]:
-                    self.apple.apple_remover(app_loc)
-                    break
+            for brick in self.wall.walls_loc[wall]:
+                if tuple(brick) in loc_list:
+                    self.snake.cut_snake(tuple(brick))
 
-                # If a wall is run over by a snake
-                loc_list = self.snake.get_locs()[1:]
-                for wall in self.wall.walls_loc.keys():
-                    for brick in self.wall.walls_loc[wall]:
-                        if tuple(brick) in loc_list:
-                            self.snake.cut_snake(tuple(brick))
 
-    def update_objects_r0(self)-> None:
+
+
+
+
+
+    def update_appels_and_walls(self)-> None:
         """
         Updates all the objects placed on the board
         """
         if self.wall.need_more_walls():
             self.wall.wall_generetor(self.wall.walls_loc,self.snake.get_locs())
-        if self.apple.need_more_apple():
-            self.apple.apple_generetor(self.wall.walls_loc,self.snake.get_locs())
         ap_list = self.apple.ap_locs.copy()
         for wall in self.wall.walls_loc.keys():
             for app_loc in ap_list:
-                if list(app_loc) in self.wall.walls_loc[wall]:
+                if app_loc in self.wall.walls_loc[wall]:
                     self.apple.apple_remover(app_loc)
-                    break
 
-                # If a wall is run over by a snake
-                loc_list = self.snake.get_locs()[1:]
-                for wall in self.wall.walls_loc.keys():
-                    for brick in self.wall.walls_loc[wall]:
-                        if tuple(brick) in loc_list:
-                            self.snake.cut_snake(tuple(brick))
+        if self.apple.need_more_apple():
+            self.apple.apple_generetor(self.wall.walls_loc, self.snake.get_locs())
+
+
 
     def draw_board(self, gd: GameDisplay) -> None:
         """
@@ -163,7 +157,6 @@ class SnakeGame:
             if (self.board_keep[0] < 0) or (self.board_keep[1] < 0) \
                     or (self.board_keep[0] > self.__size[0] - 1) or (self.board_keep[1] > self.__size[1] - 1):
                 gd.draw_cell(self.snake.get_tail_loc()[0], self.snake.get_tail_loc()[1], 'black')
-
         for ap in self.apple.ap_locs:
             apx,apy = list(ap)[0],list(ap)[1]
             gd.draw_cell(apx, apy, "green")
@@ -173,6 +166,8 @@ class SnakeGame:
                 if (0 <= brick[0]<self.__size[0]) and (0 <= brick[1] < self.__size[1]):
                     gd.draw_cell(bx, by, "blue")
 
+
+
     def snake_len(self):
         return len(self.snake)
 
@@ -181,9 +176,7 @@ class SnakeGame:
         In this code section we check whether a wall has left the board.
          If so - we remove it from the dict of walls
         '''
-
-                
-
+        self.snake_salami()
         self.my_round +=1
 
 
@@ -197,6 +190,10 @@ class SnakeGame:
                 if tuple(brick) == self.snake.get_head_loc():
                     print("Game over wall")
                     return True
+        if len(self.snake) == 1:
+            print("Game over wall")
+            return True
+
 
         #self eating
         loc_list = self.snake.get_locs()
