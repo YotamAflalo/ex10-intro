@@ -72,9 +72,7 @@ class SnakeGame:
         """
         Updates all the objects placed on the board
         """
-        if self.my_round <=  6:
-            print(")))))))))))))))))))))))))))))))))))))))))))))))))))))))))")
-            return None
+
     #For the sake of continuous running the game will treat not clicking as the previous click.
         if self.__key_clicked == None:
             self.__key_clicked = self.__pre_move

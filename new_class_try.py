@@ -81,12 +81,13 @@ class Snake:
         get head loc and conect 2 Vertebra to it.
         '''
 
-        self.__tail = Vertebra((row-2,col))
+        self.__tail = Vertebra((row, col - 2))
         curent = self.__tail
-        for i in range(1,-1,-1):
-            curent.creat_next((row-i,col))
+        for i in range(-1,1):
+            curent.creat_next((row, col + i))
             curent = curent.next
         self.__head = curent
+        print(self)
 
     def get_locs(self):
         """
