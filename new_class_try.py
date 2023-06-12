@@ -180,6 +180,11 @@ class Snake:
         self.__length = i
 
 
+    def decapitation(self):
+        self.__head = self.__head.prev
+        self.__head.next = None
+
+
 """
 !
 a = Snake()

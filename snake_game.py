@@ -93,6 +93,9 @@ class SnakeGame:
         if  (0 <= new_loc[0] < self.__size[0]) and (0 <= new_loc[1] < self.__size[1]):
             self.__pre_move = self.__key_clicked
             self.snake.move_snake(new_loc,(new_loc in self.apple.ap_locs))
+        else:
+            self.snake.move_snake(new_loc, (new_loc in self.apple.ap_locs))
+            self.snake.decapitation()
 
     # Objects interaction:
         if new_loc in self.apple.ap_locs: #if apple got eat
