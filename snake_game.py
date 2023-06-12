@@ -110,7 +110,7 @@ class SnakeGame:
                     out = 0
             if out == 1:
                 self.wall.wall_remove(wall)
-                self.wall.wall_generetor(self.wall.walls_loc, self.snake.get_locs())
+                #self.wall.wall_generetor(self.wall.walls_loc, self.snake.get_locs())
         if self.wall.need_more_walls():
             self.wall.wall_generetor(self.wall.walls_loc,self.snake.get_locs())
         if self.apple.need_more_apple():
