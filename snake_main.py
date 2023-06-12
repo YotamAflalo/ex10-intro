@@ -19,11 +19,13 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     else:
         game.init_objects_debug(size,unpack_arg['apples'],unpack_arg['walls'])
     # DRAW BOARD
-    #game.update_objects()
+    game.update_objects_r0()
     game.draw_board(gd)
     # END OF ROUND 0
+    f = 0
+    print(f)
     gd.end_round()
-    while (not game.is_over()) and not rounds == 0:
+    while (not game.is_over()) and not rounds in [0,1]:
 
         # CHECK KEY CLICKS
         key_clicked = gd.get_key_clicked()
@@ -35,8 +37,9 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
         #if gd._round_num<2:
         #    gd.show_score(0)
         #else:
-        gd.show_score(int(a))
-        # DRAW BOARD
+        if game.snake_len() > 3:
+            gd.show_score(int(a))
+            # DRAW BOARD
         game.draw_board(gd)
         # WAIT FOR NEXT ROUND:
         game.end_round()

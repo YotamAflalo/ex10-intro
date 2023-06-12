@@ -117,6 +117,27 @@ class SnakeGame:
                         if tuple(brick) in loc_list:
                             self.snake.cut_snake(tuple(brick))
 
+    def update_objects_r0(self)-> None:
+        """
+        Updates all the objects placed on the board
+        """
+        if self.wall.need_more_walls():
+            self.wall.wall_generetor(self.wall.walls_loc,self.snake.get_locs())
+        if self.apple.need_more_apple():
+            self.apple.apple_generetor(self.wall.walls_loc,self.snake.get_locs())
+        ap_list = self.apple.ap_locs.copy()
+        for wall in self.wall.walls_loc.keys():
+            for app_loc in ap_list:
+                if list(app_loc) in self.wall.walls_loc[wall]:
+                    self.apple.apple_remover(app_loc)
+                    break
+
+                # If a wall is run over by a snake
+                loc_list = self.snake.get_locs()[1:]
+                for wall in self.wall.walls_loc.keys():
+                    for brick in self.wall.walls_loc[wall]:
+                        if tuple(brick) in loc_list:
+                            self.snake.cut_snake(tuple(brick))
 
     def draw_board(self, gd: GameDisplay) -> None:
         """
@@ -126,6 +147,11 @@ class SnakeGame:
         while current and self.color == 'black':
             gd.draw_cell(current.get_loc()[0], current.get_loc()[1], 'black')
             current = current.prev
+        if self.color == 'black':
+            if (self.board_keep[0] < 0) or (self.board_keep[1] < 0) \
+                    or (self.board_keep[0] > self.__size[0] - 1) or (self.board_keep[1] > self.__size[1] - 1):
+                gd.draw_cell(self.snake.get_tail_loc()[0], self.snake.get_tail_loc()[1], 'black')
+
         for ap in self.apple.ap_locs:
             apx,apy = list(ap)[0],list(ap)[1]
             gd.draw_cell(apx, apy, "green")

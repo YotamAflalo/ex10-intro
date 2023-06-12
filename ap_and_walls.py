@@ -85,9 +85,11 @@ class Walls:
         :return: None
         '''
         x_wall,y_wall,dir_wall = get_random_wall_data()
-        key_change = {'Down': [-1, 0], 'Up': [1, 0], 'Right': [0, -1], 'Left': [0, 1]}
+        print(x_wall,y_wall,dir_wall)
+        #key_change = {'Down': [-1, 0], 'Up': [1, 0], 'Right': [0, -1], 'Left': [0, 1]}
+        key_change = {'Right': [-1, 0], 'Left': [1, 0], 'Down': [0, -1], 'Up': [0, 1]}
         free_place = 1
-        for i in range(3): #generate wall with 3 bricks
+        for i in range(-1,2,1): #generate wall with 3 bricks
             new_loc = x_wall+i*key_change[dir_wall][0],y_wall+i*key_change[dir_wall][1]
             #chack for apples
             if new_loc in ap_locs or new_loc in snake_locs:
@@ -98,7 +100,7 @@ class Walls:
                     free_place=0
         if free_place ==1:
             #making list with all the brick places
-            palce_list = [[x_wall+i*key_change[dir_wall][0],y_wall+i*key_change[dir_wall][1]] for i in range(3)]
+            palce_list = [[x_wall+j*key_change[dir_wall][0],y_wall+j*key_change[dir_wall][1]] for j in range(-1,2,1)]
             self.walls_loc[(x_wall,y_wall,dir_wall)] = palce_list #place the new wall
             self.num_walls+=1 #add 1 to the walls count
 
@@ -107,7 +109,8 @@ class Walls:
         move the walls one block in their direction
         :return: None
         '''
-        key_change = {'Down': [-1, 0], 'Up': [1, 0], 'Right': [0, -1], 'Left': [0, 1]}
+        #key_change = {'Down': [-1, 0], 'Up': [1, 0], 'Right': [0, -1], 'Left': [0, 1]}
+        key_change = {'Right': [-1, 0], 'Left': [1, 0], 'Down': [0, -1], 'Up': [0, 1]}
         # Move each wall in the right direction, by the keys above
         for wall in self.walls_loc.keys():
 

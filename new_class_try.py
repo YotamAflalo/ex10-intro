@@ -127,8 +127,11 @@ class Snake:
         Returns the position of the snake's head
         """
         return self.__head.get_loc()
-
-
+    def get_tail_loc(self):
+        '''
+        Returns the position of the snake's tail
+        '''
+        return self.__tail.get_loc()
     def pop_lest(self):
         '''
         drop the lest vertebra of the snake
