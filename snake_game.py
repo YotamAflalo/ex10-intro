@@ -1,7 +1,7 @@
 from typing import Optional
 from game_display import GameDisplay
-from new_class_try import Snake, Vertebra
-from ap_and_walls import Apples, Walls
+from snake_class import Snake, Vertebra
+from apple_and_wall_calss import Apples, Walls
 
 class SnakeGame:
     '''
@@ -79,7 +79,6 @@ class SnakeGame:
             self.__key_clicked = self.__pre_move
     # Checks if the direction is not the opposite direction from the previous reading.
     # If so it will ignore the current reading.
-    # Configer the new location the had shuld go to.
         if (self.__key_clicked != self.back[self.__pre_move]):
             new_loc = self.snake.get_head_loc()[0] + self.key_change[self.__key_clicked][0],\
                 self.snake.get_head_loc()[1] + self.key_change[self.__key_clicked][1]
@@ -101,7 +100,9 @@ class SnakeGame:
     # Objects interaction:
         if self.my_round % 2 == 1 and self.my_round > 0: #if need to move the whalls
             self.wall.wall_move()
+            self.apple.apple_wall_collision(self.wall.walls_loc)
         wall_ex_dict = self.wall.walls_loc.copy()
+        # This loop checks if a wall has gone out of bounds of the board
         for wall in wall_ex_dict.keys():
             remove = True
             for brick in wall_ex_dict[wall]:
@@ -109,7 +110,7 @@ class SnakeGame:
                     remove = False
             if remove:
                 self.wall.wall_remove(wall)
-        if new_loc in self.apple.ap_locs: #if apple got eat
+        if new_loc in self.apple.ap_locs: #If an apple is eaten in this round
             self.apple.apple_remover(new_loc)
         self.update_appels_and_walls()
 
@@ -123,11 +124,6 @@ class SnakeGame:
                     self.snake.cut_snake(tuple(brick))
 
 
-
-
-
-
-
     def update_appels_and_walls(self)-> None:
         """
         Updates all the objects placed on the board
@@ -137,9 +133,9 @@ class SnakeGame:
         ap_list = self.apple.ap_locs.copy()
         for wall in self.wall.walls_loc.keys():
             for app_loc in ap_list:
-                if app_loc in self.wall.walls_loc[wall]:
+                if list(app_loc) in self.wall.walls_loc[wall]:
                     self.apple.apple_remover(app_loc)
-
+        #add more apples if needed
         if self.apple.need_more_apple():
             self.apple.apple_generetor(self.wall.walls_loc, self.snake.get_locs())
 
@@ -157,9 +153,11 @@ class SnakeGame:
             if (self.board_keep[0] < 0) or (self.board_keep[1] < 0) \
                     or (self.board_keep[0] > self.__size[0] - 1) or (self.board_keep[1] > self.__size[1] - 1):
                 gd.draw_cell(self.snake.get_tail_loc()[0], self.snake.get_tail_loc()[1], 'black')
+        #display the apples
         for ap in self.apple.ap_locs:
             apx,apy = list(ap)[0],list(ap)[1]
             gd.draw_cell(apx, apy, "green")
+        # display the walls
         for wall in self.wall.walls_loc.keys():
             for brick in self.wall.walls_loc[wall]:
                 bx,by = brick[0],brick[1]
@@ -169,12 +167,16 @@ class SnakeGame:
 
 
     def snake_len(self):
+        '''
+        return the len of the snake in this turn
+        :return:
+        '''
         return len(self.snake)
 
     def end_round(self) -> None:
         '''
-        In this code section we check whether a wall has left the board.
-         If so - we remove it from the dict of walls
+        In this code section we check whether a wall has cut a snake, and add round number.
+
         '''
         self.snake_salami()
         self.my_round +=1
@@ -197,7 +199,6 @@ class SnakeGame:
 
         #self eating
         loc_list = self.snake.get_locs()
-        #print((loc_list),'\n',(set(loc_list)))
         if len(loc_list) != len(set(loc_list)):
             print("Game over tail")
             return True
